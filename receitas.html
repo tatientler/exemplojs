@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <title>Catálogo de Receitas</title>
+
+    <script id="json-data" type="application/json">
+      [
+        {
+          "titulo": "Paçoca de colher com canela",
+          "img": "./assets/paçoca.webp",
+          "prepare": "Em uma panela junte: leite condensado, leite, manteiga, 1 xícara (chá) de amendoim e a canela em pó. Cozinhe em fogo baixo, mexendo sem parar até engrossar. Assim que atingir uma consistência mais grossa, adicione o creme de leite e o restante do amendoim. Cozinhe por mais 2 minutos e desligue o fogo.",
+          "items": [
+            {
+              "item": "1 colher(chá) de canela em pó"
+            },
+            {
+              "item": "1/2 xícara(chá) de leite"
+            },
+            {
+              "item": "2 xícaras(chá) de amendoim"
+            },
+            {
+              "item": "Amendoim moído para decorar"
+            },
+            {
+              "item": "1 lata de leite condensado"
+            },
+            {
+              "item": "1 lata de creme de leite"
+            },
+            {
+              "item": "1 colher (sopa) de manteiga ou margarina"
+            }
+          ]
+        },
+        {
+          "titulo": "Brigadeiro de milho com cravo-da-índia e canela",
+          "img": "./assets/brigadeiro.webp",
+          "prepare": "Em um liquidificador junte o leite condensado e o milho. Bata por alguns minutos. Peneire a mistura, disponha em uma panela e adicione a manteiga. Cozinhe em fogo baixo, mexendo sem parar. Desligue quando a mistura começar a soltar do fundo da panela.Espalhe a massa em um refratário untado com manteiga e deixe na geladeira por pelo menos 2 horas antes de fazer as bolinhas. Misture o açúcar com a canela em pó KITANO, passe as bolinhas pela mistura e sirva. Para finalizar: açúcar e canela ou com açúcar e cravo.",
+          "items": [
+            {
+              "item": "1 lata de milho em conserva"
+            },
+            {
+              "item": "1 colher(sopa) de manteiga"
+            },
+            {
+              "item": "1 lata de leite condensado"
+            },
+            {
+              "item": "1 xícara(chá) de alúcar cristal"
+            },
+            {
+              "item": "Um punhado de cravo-da-Índia"
+            },
+            {
+              "item": "2 colheres(sopa) de canela em pó"
+            }
+          ]
+        },
+        {
+          "titulo": "Arroz doce",
+          "img": "./assets/arroz-doce.webp",
+          "prepare": "Cozinhe o arroz no leite, juntamente com a canela (utilize uma panela grande para que o leite ferva e não derrame). Após 20 minutos, mexa de tempos em tempos. Acrescente o açúcar e deixe por 20 minutos. Logo em seguida, acrescente o leite condensado e deixe por mais 20 minutos. Coloque em uma linda travessa.",
+          "items": [
+            {
+              "item": "1 1/2 litro de leite"
+            },
+            {
+              "item": "3 xícaras de açúcar"
+            },
+            {
+              "item": "1 lata de leite condensado"
+            },
+            {
+              "item": "2 xícaras de arroz branco"
+            },
+            {
+              "item": "canela em pau a gosto"
+            }
+          ]
+        }
+      ]
+    </script>
+    <script type="text/javascript">
+      const jsonStr = document.getElementById("json-data").textContent;
+      const receita = JSON.parse(jsonStr);
+
+      function getListaIngredientes(receita) {
+        let lista = document.createElement("ul");
+        receita.map((item) => {
+          lista.innerHTML += `
+          <ul class="list-group list-group-flush">
+                ${item.items
+                  .map((item) => {
+                    return `<li class="list-group-item">${item.item}</li>`;
+                  })
+                  .join("")}
+         </ul>
+                  `;
+        });
+        return lista.innerHTML;
+      }
+
+      function getCard(receita) {
+        let card = document.createElement("div");
+        receita.map((item) => {
+          card.innerHTML += `
+          <div class="card m-2" style="width: 250px;">
+            <img src="${item.img}" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">${item.titulo}</h5>
+              ${getListaIngredientes(receita)}
+              <hr />
+              <p class="card-text">${item.prepare}</p>
+            </div>
+          </div>
+          `;
+        });
+        document.getElementById("pnlCatalogo").appendChild(card);
+      }
+
+      function preencheCatalogo() {
+        getCard(receita);
+      }
+    </script>
+  </head>
+  <body onload="preencheCatalogo()">
+    <header></header>
+    <main class="container-fluid bg-warning">
+      <div class="d-flex flex-wrap" id="pnlCatalogo"></div>
+    </main>
+    <footer></footer>
+
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
